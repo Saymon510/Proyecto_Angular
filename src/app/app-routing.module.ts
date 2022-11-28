@@ -6,6 +6,8 @@ import { CatalogueComponent } from './pages/catalogue/catalogue.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ProductComponent } from './pages/product/product.component';
 import { NopagesfoundComponent } from './pages/nopagesfound/nopagesfound.component';
+import { CommonModule } from '@angular/common';
+import { PagesRoutingModule } from './pages/pages-routing.module';
 
 const routes:Routes = [
   //rutas protegidas
@@ -23,13 +25,14 @@ const routes:Routes = [
   {path:'**', component: NopagefoundComponent},
   ];
 
-@NgModule({
-  declarations: [],
-  imports: [
+  @NgModule({
+    declarations: [],
+    imports: [
+    CommonModule,
+    RouterModule,
+    PagesRoutingModule,
     RouterModule.forRoot(routes),
-  ],
-  exports:[
-    RouterModule
-  ]
-})
-export class AppRoutingModule { }
+    ],
+    exports:[RouterModule]
+    })
+    export class AppRoutingModule { }
