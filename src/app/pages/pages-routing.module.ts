@@ -9,10 +9,12 @@ import { CatalogueComponent } from './catalogue/catalogue.component';
 const routes: Routes = [
   //rutas protegidas
   {
-    path: '',
+    path: 'dashboard/',
     component: PagesComponent,
     children: [
-    { path: 'dashboard', component: DashboardComponent },
+    { path: '', component: DashboardComponent },
+    //{ path: 'progress', component: ProgressComponent },
+    //{ path: 'grafica1', component: Grafica1Component },
     { path: 'product', component: ProductComponent },
     { path: 'catalogue', component: CatalogueComponent },
     { path:'', redirectTo:'/dashboard', pathMatch:'full'},
