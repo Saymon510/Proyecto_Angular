@@ -6,4 +6,5 @@ export interface ProductModule {
   description: string;
   image: string[];
   category: CategoryModule;
+  
 }

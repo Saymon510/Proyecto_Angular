@@ -6,6 +6,7 @@ import { PagesComponent } from './pages.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { SharedModule } from '../shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -20,7 +21,7 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     BrowserModule,
     AppRoutingModule,
-    PagesModule
+    RouterModule
   ],
   exports: [
     DashboardComponent,
