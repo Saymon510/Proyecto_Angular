@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import{HttpClient}from '@angular/common/http';
+import { ProductHttpService } from 'src/app/services/product-http.service';
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -7,7 +8,7 @@ import{HttpClient}from '@angular/common/http';
 })
 export class ProductComponent implements OnInit {
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private productHttpService : ProductHttpService ) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -17,7 +18,7 @@ export class ProductComponent implements OnInit {
     //this.deleteProducts();
   }
   getProducts(){
-    this.httpClient.get("https://api.escuelajs.co/api/v1/products").subscribe(
+    this.productHttpService.getAll().subscribe(
       response => {
         console.log(response);
       }
@@ -25,7 +26,7 @@ export class ProductComponent implements OnInit {
   }
 
   getProduct(){
-    this.httpClient.get("https://api.escuelajs.co/api/v1/products/21").subscribe(
+    this.productHttpService.getOne(1).subscribe(
       response => {
         console.log(response);
       }
@@ -41,8 +42,7 @@ export class ProductComponent implements OnInit {
       categoryId:1,
       images:["none"],
     }
-    const url = "https://api.escuelajs.co/api/v1/products"
-    this.httpClient.post(url,data).subscribe(
+    this.productHttpService.store().subscribe(
       response => {
         console.log(response);
       }
@@ -54,16 +54,14 @@ export class ProductComponent implements OnInit {
       price:20,
       description:"Utiles Escolares - Saymon Mina"
     }
-    const url = "https://api.escuelajs.co/api/v1/products/21";
-    this.httpClient.put(url, data).subscribe(
+    this.productHttpService.update(1).subscribe(
       response =>{
         console.log(response);
       }
     )
   }
   deleteProducts(){
-    const url = "https://api.escuelajs.co/api/v1/products/21";
-    this.httpClient.delete(url).subscribe(
+    this.productHttpService.destroy(1).subscribe(
       response =>{
         console.log(response);
       }

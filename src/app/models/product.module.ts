@@ -6,5 +6,15 @@ export interface ProductModule {
   description: string;
   image: string[];
   category: CategoryModule;
-  
+}
+export interface CreateProduct extends Omit<ProductModule, "id"|"category">{
+  categoryId:number
+}
+
+export interface UpdateProduct extends Partial<ProductModule>{
+  categoryId:number
+}
+
+export interface DeleteProduct extends Partial<ProductModule>{
+  categoryId:number
 }
