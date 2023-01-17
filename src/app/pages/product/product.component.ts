@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductModel, UpdateProductDto } from 'src/app/models/product.model';
 import { ProductHttpService } from 'src/app/services/product-http.service';
 
 @Component({
@@ -7,66 +8,73 @@ import { ProductHttpService } from 'src/app/services/product-http.service';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+   products:ProductModel[] = [];
 
-  constructor(private productHttpService : ProductHttpService ) { }
+  constructor(private productHttpService:ProductHttpService) {
+
+  }
 
   ngOnInit(): void {
     this.getProducts();
-    this.getProduct();
+    //this.getProduct();
     this.createProduct();
-    this.updateProduct();
-    //this.deleteProducts();
-  }
-  getProducts(){
-    this.productHttpService.getAll().subscribe(
-      response => {
-        console.log(response);
-      }
-    );
+    //this.updateProduct();
+    //this.deleteProduct(id);
   }
 
-  getProduct(){
-    this.productHttpService.getOne(1).subscribe(
-      response => {
+  getProducts(){
+    const url = "https://api.escuelajs.co/api/v1/products";
+    this.productHttpService.getAll().subscribe(
+      response =>{
+        this.products = response;
         console.log(response);
       }
-    );
+    )
+  }
+
+  getProduct(id: ProductModel['id']){
+    const url = "https://api.escuelajs.co/api/v1/products/8";
+    return this.productHttpService.getOne(2).subscribe(
+      response =>{
+        console.log(response);
+      }
+    )
   }
 
   createProduct(){
-    const data ={
-      id:5,
-      title:"Lapiz",
-      price:1,
-      description:"Utiles Escoles Saymon Mina",
-      categoryId:1,
-      images:["none"],
+    const data = {
+      title: 'esfero',
+      price: 45,
+      description: 'utiles escolares',
+      categoryId: 1,
+      image: ["https://api.lorem.space/image/watch?w=640&h=480&r=5922", "https://api.lorem.space/image/watch?w=640&h=480&r=3622"],
     }
-    this.productHttpService.store().subscribe(
-      response => {
-        console.log(response);
-      }
-    )
-  }
-  updateProduct(){
-    const data={
-      title:"cuaderno",
-      price:20,
-      description:"Utiles Escolares - Saymon Mina"
-    }
-    this.productHttpService.update(1).subscribe(
-      response =>{
-        console.log(response);
-      }
-    )
-  }
-  deleteProducts(){
-    this.productHttpService.destroy(1).subscribe(
+    this.productHttpService.store(data).subscribe(
       response =>{
         console.log(response);
       }
     )
   }
 
+  updateProduct(id: ProductModel['id']){
+    const data = {
+      title: 'zapatos',
+      price: 60,
+      description: 'calzado',
+    }
+    this.productHttpService.update(1, data).subscribe(
+      response =>{
+        console.log(response);
+      }
+    )
+  }
 
+  deleteProduct(id: ProductModel['id']){
+    this.productHttpService.destroy(id).subscribe(
+      response =>{
+        this.products = this.products.filter(product => product.id != id);
+        console.log(response);
+      }
+    )
+  }
 }
