@@ -4,7 +4,7 @@ export interface ProductModel {
   title: string;
   price: number;
   description: string;
-  image: string[];
+  images: string[];
   category: CategoryModule;
 }
 export interface CreateProductDto extends Omit<ProductModel, "id"|"category">{

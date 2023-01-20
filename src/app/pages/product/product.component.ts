@@ -9,6 +9,7 @@ import { ProductHttpService } from 'src/app/services/product-http.service';
 })
 export class ProductComponent implements OnInit {
    products:ProductModel[] = [];
+   selectedProduct:UpdateProductDto = {};
 
   constructor(private productHttpService:ProductHttpService) {
 
@@ -17,13 +18,12 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     this.getProducts();
     //this.getProduct();
-    this.createProduct();
+    //this.createProduct();
     //this.updateProduct();
-    //this.deleteProduct(id);
+    //this.deleteProduct();
   }
 
   getProducts(){
-    const url = "https://api.escuelajs.co/api/v1/products";
     this.productHttpService.getAll().subscribe(
       response =>{
         this.products = response;
@@ -47,13 +47,17 @@ export class ProductComponent implements OnInit {
       price: 45,
       description: 'utiles escolares',
       categoryId: 1,
-      image: ["https://api.lorem.space/image/watch?w=640&h=480&r=5922", "https://api.lorem.space/image/watch?w=640&h=480&r=3622"],
+      images: ["https://api.lorem.space/image/watch?w=640&h=480&r=5922", "https://api.lorem.space/image/watch?w=640&h=480&r=3622"],
     }
     this.productHttpService.store(data).subscribe(
       response =>{
         console.log(response);
       }
     )
+  }
+
+  editProduct(product: ProductModel){
+    this.selectedProduct = product;
   }
 
   updateProduct(id: ProductModel['id']){
